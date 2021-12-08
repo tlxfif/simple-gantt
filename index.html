@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>simple-gantt</title>
+    <script src="simple-gantt.js"></script>
+    <link rel="stylesheet" href="simple-gantt.css">
+</head>
+<body>
+<div id="gantt">
+
+</div>
+</body>
+<script>
+    let option = {
+        start: '2021-11-08',
+        end: '2022-01-01',
+        deadline: [
+            {
+                date: '2021-12-10',
+                title: 'AnaComplete',
+                color: '#ffffff',
+                backgroundColor: '#74cd76'
+            },
+            {
+                date: '2021-12-16',
+                title: 'DevComplete',
+                color: '#ffffff',
+                backgroundColor: '#824747'
+            },
+            {
+                date: '2021-12-19',
+                title: 'TesComplete',
+                color: '#ffffff',
+                backgroundColor: '#de2020'
+            }
+        ]
+    }
+    let tasks = [
+        {
+            id: '123456',
+            name: 'task1',
+            start: '2021-12-08',
+            end: '2021-12-31'
+        },
+        {
+            id: '123457',
+            name: 'task2',
+            start: '2021-11-09',
+            end: '2021-11-31'
+        },
+        {
+            id: '123458',
+            name: 'task3',
+            start: '2021-12-09',
+        }
+    ]
+    new SimpleGantt("gantt", tasks, option);
+</script>
+</html>
