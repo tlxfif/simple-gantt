@@ -34,25 +34,41 @@
                 color: '#ffffff',
                 backgroundColor: '#de2020'
             }
-        ]
+        ],
+        statusColor:{
+            'Create':'#ff7541',
+            'Process':'deepskyblue',
+            'Waiting':'#9295ec',
+            'Complete':'#74cd76',
+        }
     }
     let tasks = [
         {
             id: '123456',
             name: 'task1',
             start: '2021-12-08',
-            end: '2021-12-31'
+            end: '2021-12-31',
+            status:'Create'
         },
         {
             id: '123457',
             name: 'task2',
             start: '2021-11-09',
-            end: '2021-11-31'
+            end: '2021-11-31',
+            status:'Process'
         },
         {
             id: '123458',
             name: 'task3',
             start: '2021-12-09',
+            status:'Waiting'
+        },
+        {
+            id: '123459',
+            name: 'task4',
+            start: '2021-11-15',
+            end: '2021-11-25',
+            status:'Complete'
         }
     ]
     new SimpleGantt("gantt", tasks, option);

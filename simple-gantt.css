@@ -47,6 +47,9 @@
     top: -15px;
     font-size: 3px;
 }
+.gantt-deadline-title:hover{
+   z-index: 10;
+}
 .gantt-deadline{
     height: 100%;
     position: absolute;

@@ -21,9 +21,15 @@ function SimpleGantt(tag, tasks, option) {
             taskCount = dayTime(task.start, task.end);
         }
         let leftCount = dayTime(option.start, task.start);
+        let bgColor = option.statusColor[task.status];
+        if(bgColor){
+            bgColor = `background-color: ${bgColor};`
+        }
         body += `<div class="gantt-line">`
         body += `<div class="gantt-task" 
-               style="left:${leftCount * 20}px;height:20px;width:${taskCount * 20}px"
+               style="left:${leftCount * 20}px;height:20px;width:${taskCount * 20}px;
+               ${bgColor}
+               "
                >
                ${task.name}
                </div>`
