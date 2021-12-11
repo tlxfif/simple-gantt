@@ -2,6 +2,16 @@
     margin: 0;
     padding: 0;
 }
+.gantt-month{
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 10px;
+    color: dimgray;
+    border: gainsboro 1px solid;
+    box-sizing: border-box;
+}
 .gantt-title{
     display: inline-block;
     height: 30px;
@@ -10,9 +20,10 @@
     text-align: center;
     font-size: 10px;
     color: dimgray;
+    border: gainsboro 1px solid;
+    box-sizing: border-box;
 }
 .gantt-body{
-    margin-top: 10px;
 }
 .gantt-box{
     box-sizing: border-box;
@@ -38,6 +49,12 @@
     line-height: 20px;
     color: white;
 }
+.gantt-task-text{
+    position: absolute;
+    font-size: 10px;
+    line-height: 20px;
+    color: #5c5c5c;
+}
 .gantt-body{
     height: 100%;
     position: relative;
@@ -45,10 +62,12 @@
 .gantt-deadline-title{
     position: absolute;
     top: -15px;
+    opacity: 0.5;
     font-size: 3px;
 }
 .gantt-deadline-title:hover{
    z-index: 10;
+    opacity: 1;
 }
 .gantt-deadline{
     height: 100%;

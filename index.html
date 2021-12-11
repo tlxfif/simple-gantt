@@ -12,6 +12,12 @@
 </div>
 </body>
 <script>
+
+
+    Date.prototype.format = function () {
+        return this.getFullYear() + "-" + (this.getMonth() + 1) + "-" + this.getDate();
+    }
+
     let option = {
         start: '2021-11-08',
         end: '2022-01-01',
@@ -33,6 +39,12 @@
                 title: 'TesComplete',
                 color: '#ffffff',
                 backgroundColor: '#de2020'
+            },
+            {
+                date: new Date().format(),
+                title: 'currDay',
+                color: '#ffffff',
+                backgroundColor: '#244aaa'
             }
         ],
         statusColor:{
@@ -48,7 +60,8 @@
             name: 'task1',
             start: '2021-12-08',
             end: '2021-12-31',
-            status:'Create'
+            status:'Create',
+            dev:'tlxfif',
         },
         {
             id: '123457',

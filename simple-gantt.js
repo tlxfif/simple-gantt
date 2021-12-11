@@ -6,12 +6,41 @@ function SimpleGantt(tag, tasks, option) {
     let date = getDate(option.start);
     let body = '<div class="gantt-body">'
     let bodyBg = ''
+
+    let monthTitle = '<div>'
+    let monthTitleArr = [
+        {
+            month:(date.getMonth()+1),
+            box:1
+        }
+    ]
+    let monthTitleFlag = 0;
     for (let i = 0; i <= dayCount; i++) {
+
+        if(i!==0){
+            if(monthTitleArr[monthTitleFlag].month!==date.getMonth()+1){
+                monthTitleFlag++;
+                monthTitleArr[monthTitleFlag] = {}
+                monthTitleArr[monthTitleFlag].month = date.getMonth()+1
+                monthTitleArr[monthTitleFlag].box = 1
+            }else{
+                monthTitleArr[monthTitleFlag].box++;
+            }
+        }
+
         title += `<span class="gantt-title gantt-col-${i}">${date.getDate()}</span>`
         bodyBg += `<span class="gantt-box gantt-col-${i}"></span>`
         date.setDate(date.getDate() + 1)
     }
     title += '</div>'
+
+    for (let i = 0; i < monthTitleArr.length; i++) {
+
+        monthTitle += `<span class="gantt-month"
+        style="width:${monthTitleArr[i].box * 20}px;"
+        >${monthTitleArr[i].month}</span>`
+    }
+    monthTitle += '</div>'
 
     //tasks
     for (let i = 0; i < tasks.length; i++) {
@@ -28,11 +57,12 @@ function SimpleGantt(tag, tasks, option) {
         body += `<div class="gantt-line">`
         body += `<div class="gantt-task" 
                style="left:${leftCount * 20}px;height:20px;width:${taskCount * 20}px;
-               ${bgColor}
-               "
-               >
-               ${task.name}
+               ${bgColor}">
                </div>`
+        if(!task.dev){
+            task.dev = ''
+        }
+        body += `<div class="gantt-task-text" style="left:${5+leftCount * 20}px;height:20px;">【${task.dev}】${task.name}</div>`
         body += `<div class="gantt-bg">${bodyBg}</div>`
         body += `</div>`
     }
@@ -57,6 +87,8 @@ function SimpleGantt(tag, tasks, option) {
     }
 
     body += '</div>'
+
+    totalHtml += monthTitle;
     totalHtml += title;
     totalHtml += body;
     element.innerHTML = totalHtml
@@ -64,10 +96,6 @@ function SimpleGantt(tag, tasks, option) {
 
     function byId(tag) {
         return document.getElementById(tag)
-    }
-
-    Date.prototype.format = function () {
-        return this.getFullYear() + "-" + (this.getMonth() + 1) + "-" + this.getDate();
     }
 
     function dayTime(start, end) {
