@@ -1,5 +1,5 @@
 function SimpleGantt(tag, tasks, option) {
-    let element = byId(tag);
+    let element = document.getElementById(tag);
     let dayCount = dayTime(option.start, option.end);
     let totalHtml = ''
     let title = '<div>'
@@ -27,9 +27,12 @@ function SimpleGantt(tag, tasks, option) {
                 monthTitleArr[monthTitleFlag].box++;
             }
         }
-
-        title += `<span class="gantt-title gantt-col-${i}">${date.getDate()}</span>`
-        bodyBg += `<span class="gantt-box gantt-col-${i}"></span>`
+        let weekend  =''
+        if(date.getDay()===6||date.getDay()===0){
+            weekend = 'weekend'
+        }
+        title += `<span class="gantt-title gantt-col-${i} ${weekend}">${date.getDate()}</span>`
+        bodyBg += `<span class="gantt-box gantt-col-${i} ${weekend}"></span>`
         date.setDate(date.getDate() + 1)
     }
     title += '</div>'
@@ -93,10 +96,6 @@ function SimpleGantt(tag, tasks, option) {
     totalHtml += body;
     element.innerHTML = totalHtml
 
-
-    function byId(tag) {
-        return document.getElementById(tag)
-    }
 
     function dayTime(start, end) {
         start = getDate(start).getTime();

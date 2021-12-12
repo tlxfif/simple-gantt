@@ -5,8 +5,20 @@
     <title>simple-gantt</title>
     <script src="simple-gantt.js"></script>
     <link rel="stylesheet" href="simple-gantt.css">
+    <style>
+        #search{
+            margin-left: 100px;
+        }
+    </style>
 </head>
 <body>
+<div id="search">
+   <div id="searchBtn">
+        <input type="button" value="search" onclick="searchFun()" style="width: 200px">
+   </div>
+   <div id="devSearch"></div>
+   <div id="statusSearch"></div>
+</div>
 <div id="gantt">
 
 </div>
@@ -17,6 +29,7 @@
     Date.prototype.format = function () {
         return this.getFullYear() + "-" + (this.getMonth() + 1) + "-" + this.getDate();
     }
+
 
     let option = {
         start: '2021-11-08',
@@ -68,22 +81,109 @@
             name: 'task2',
             start: '2021-11-09',
             end: '2021-11-31',
-            status:'Process'
+            status:'Process',
+            dev:'tlxfif2',
         },
         {
             id: '123458',
             name: 'task3',
             start: '2021-12-09',
-            status:'Waiting'
+            status:'Waiting',
+            dev:'tlxfif3',
         },
         {
             id: '123459',
             name: 'task4',
             start: '2021-11-15',
             end: '2021-11-25',
-            status:'Complete'
+            status:'Complete',
+            dev:'tlxfif4',
         }
     ]
+
+
+    function searchInit(){
+        devSearchInit()
+        statusSearchInit()
+    }
+
+    function statusSearchInit(){
+        let statusSearch = document.getElementById('statusSearch');
+        let statusSearchHtml = ''
+
+        for (let statusColorKey in option.statusColor) {
+            statusSearchHtml+=`
+                <label>
+                <input type="checkbox" value="${statusColorKey}" name="statusSearch">
+                ${statusColorKey}
+                </label>`
+        }
+        let pre = `<label>status:</label>`
+        statusSearchHtml= pre+statusSearchHtml
+        statusSearch.innerHTML = statusSearchHtml
+    }
+
+    function devSearchInit(){
+        let taskDev = []
+        for (let i = 0; i < tasks.length; i++) {
+            let task = tasks[i];
+            if(task.dev){
+                taskDev.push(task.dev)
+            }
+        }
+        let devSearch = document.getElementById('devSearch');
+        let devSearchHtml = ''
+        for (let i = 0; i < taskDev.length; i++) {
+            devSearchHtml+=`
+                <label>
+                <input type="checkbox" value="${taskDev[i]}" name="devSearch">
+                ${taskDev[i]}
+                </label>`
+        }
+        if(taskDev.length>0){
+            let pre = `<label>dev:</label>`
+            devSearchHtml= pre+devSearchHtml
+        }
+        devSearch.innerHTML = devSearchHtml
+    }
+
+    function searchFun(){
+        let newTasks =[]
+        let devArr = []
+        for (const item of document.getElementsByName('devSearch')) {
+            if(item.checked){
+                devArr.push(item.value)
+            }
+        }
+        let statusArr = []
+        for (const item of document.getElementsByName('statusSearch')) {
+            if(item.checked){
+                statusArr.push(item.value)
+            }
+        }
+        for (let i = 0; i < tasks.length; i++) {
+            let task = tasks[i];
+            let allow = false
+            if(devArr.length>0){
+                if(devArr.includes(task.dev)){
+                    allow = true
+                }
+            }
+            if(statusArr.length>0){
+                if(statusArr.includes(task.status)){
+                    allow = true
+                }
+            }
+            if(allow){
+                newTasks.push(task)
+            }
+        }
+        new SimpleGantt("gantt", newTasks, option);
+    }
+
+
+    searchInit();
+
     new SimpleGantt("gantt", tasks, option);
 </script>
 </html>
